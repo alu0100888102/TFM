@@ -1,0 +1,66 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.1",
+    "signature": "7f02cb02cab2c32ff0ccfdb195664d2cdfc49364"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.1": {
+      "EventTracer/1.0.0": {
+        "dependencies": {
+          "Microsoft.Diagnostics.Tracing.TraceEvent": "2.0.44",
+          "Microsoft.Diagnostics.Tracing.TraceEvent.Samples": "1.0.41"
+        },
+        "runtime": {
+          "EventTracer.dll": {}
+        }
+      },
+      "Microsoft.Diagnostics.Tracing.TraceEvent/2.0.44": {
+        "runtime": {
+          "lib/netstandard2.0/Dia2Lib.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          },
+          "lib/netstandard2.0/Microsoft.Diagnostics.FastSerialization.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          },
+          "lib/netstandard2.0/Microsoft.Diagnostics.Tracing.TraceEvent.dll": {
+            "assemblyVersion": "2.0.44.0",
+            "fileVersion": "2.0.44.0"
+          },
+          "lib/netstandard2.0/OSExtensions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          },
+          "lib/netstandard2.0/TraceReloggerLib.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Microsoft.Diagnostics.Tracing.TraceEvent.Samples/1.0.41": {}
+    }
+  },
+  "libraries": {
+    "EventTracer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Diagnostics.Tracing.TraceEvent/2.0.44": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-M44cN+f62/bFRQXU9M60MCVy9PhOaHwn9X0TIFKecVVwAffZGqhornEZzzeF2tDd9Sut3PFls6R37qaBUMBGwQ==",
+      "path": "microsoft.diagnostics.tracing.traceevent/2.0.44",
+      "hashPath": "microsoft.diagnostics.tracing.traceevent.2.0.44.nupkg.sha512"
+    },
+    "Microsoft.Diagnostics.Tracing.TraceEvent.Samples/1.0.41": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2Ra4xM5XeY3BuNoO3vr3enTBX+y3/PvhhJsitSzvkXpN1IM4G8nkNyppfs03Knxqm+C5vYKRd0PM+wxBzySgBQ==",
+      "path": "microsoft.diagnostics.tracing.traceevent.samples/1.0.41",
+      "hashPath": "microsoft.diagnostics.tracing.traceevent.samples.1.0.41.nupkg.sha512"
+    }
+  }
+}

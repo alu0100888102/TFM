@@ -1,0 +1,67 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Ángel\\source\\repos\\EventTracer\\EventTracer.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Ángel\\source\\repos\\EventTracer\\EventTracer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Ángel\\source\\repos\\EventTracer\\EventTracer.csproj",
+        "projectName": "EventTracer",
+        "projectPath": "C:\\Users\\Ángel\\source\\repos\\EventTracer\\EventTracer.csproj",
+        "packagesPath": "C:\\Users\\Ángel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ángel\\source\\repos\\EventTracer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Ángel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.Diagnostics.Tracing.TraceEvent": {
+              "target": "Package",
+              "version": "[2.0.44, )"
+            },
+            "Microsoft.Diagnostics.Tracing.TraceEvent.Samples": {
+              "target": "Package",
+              "version": "[1.0.41, )"
+            },
+            "Microsoft.NETCore.App": {
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}
