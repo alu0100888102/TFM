@@ -230,6 +230,15 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "WindowFormExtended/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/WindowFormExtended.dll": {}
+        },
+        "runtime": {
+          "lib/WindowFormExtended.dll": {}
+        }
       }
     }
   },
@@ -772,13 +781,26 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "WindowFormExtended/1.0.0": {
+      "sha512": "HaMSSJMW95yUn0nmVLXEYgLjTBfXLxXYiJaFcazHe36GTG5mnDEGNEqv+VIFF8DkFBMq394KwdNsyiaGMLbWaQ==",
+      "type": "package",
+      "path": "windowformextended/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/WindowFormExtended.dll",
+        "windowformextended.1.0.0.nupkg.sha512",
+        "windowformextended.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Microsoft.Diagnostics.Tracing.TraceEvent >= 2.0.44",
       "Microsoft.Diagnostics.Tracing.TraceEvent.Samples >= 1.0.41",
-      "Microsoft.NETCore.App >= 2.1.0"
+      "Microsoft.NETCore.App >= 2.1.0",
+      "WindowFormExtended >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -788,11 +810,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ángel\\source\\repos\\EventTracer\\EventTracer.csproj",
+      "projectUniqueName": "C:\\Users\\Ángel\\source\\repos\\Proyecto\\EventTracer\\EventTracer.csproj",
       "projectName": "EventTracer",
-      "projectPath": "C:\\Users\\Ángel\\source\\repos\\EventTracer\\EventTracer.csproj",
+      "projectPath": "C:\\Users\\Ángel\\source\\repos\\Proyecto\\EventTracer\\EventTracer.csproj",
       "packagesPath": "C:\\Users\\Ángel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ángel\\source\\repos\\EventTracer\\obj\\",
+      "outputPath": "C:\\Users\\Ángel\\source\\repos\\Proyecto\\EventTracer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -834,6 +856,10 @@
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
+          },
+          "WindowFormExtended": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           }
         },
         "imports": [
@@ -843,5 +869,17 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WindowFormExtended 1.0.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.1'. This package may not be fully compatible with your project.",
+      "libraryId": "WindowFormExtended",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.1"
+      ]
+    }
+  ]
 }

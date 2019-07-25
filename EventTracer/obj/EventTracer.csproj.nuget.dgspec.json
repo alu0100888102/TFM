@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ángel\\source\\repos\\EventTracer\\EventTracer.csproj": {}
+    "C:\\Users\\Ángel\\source\\repos\\Proyecto\\EventTracer\\EventTracer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ángel\\source\\repos\\EventTracer\\EventTracer.csproj": {
+    "C:\\Users\\Ángel\\source\\repos\\Proyecto\\EventTracer\\EventTracer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ángel\\source\\repos\\EventTracer\\EventTracer.csproj",
+        "projectUniqueName": "C:\\Users\\Ángel\\source\\repos\\Proyecto\\EventTracer\\EventTracer.csproj",
         "projectName": "EventTracer",
-        "projectPath": "C:\\Users\\Ángel\\source\\repos\\EventTracer\\EventTracer.csproj",
+        "projectPath": "C:\\Users\\Ángel\\source\\repos\\Proyecto\\EventTracer\\EventTracer.csproj",
         "packagesPath": "C:\\Users\\Ángel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ángel\\source\\repos\\EventTracer\\obj\\",
+        "outputPath": "C:\\Users\\Ángel\\source\\repos\\Proyecto\\EventTracer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -53,6 +53,10 @@
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true
+            },
+            "WindowFormExtended": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             }
           },
           "imports": [

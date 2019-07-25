@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="2.0.44" />
     <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent.Samples" Version="1.0.41" />
+    <PackageReference Include="WindowFormExtended" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
