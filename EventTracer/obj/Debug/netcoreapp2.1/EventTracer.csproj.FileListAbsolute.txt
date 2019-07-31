@@ -36,3 +36,5 @@ C:\Users\Ángel\source\repos\Proyecto\EventTracer\bin\Debug\netcoreapp2.1\EventT
 C:\Users\Ángel\source\repos\Proyecto\EventTracer\bin\Debug\netcoreapp2.1\EventTracer.runtimeconfig.dev.json
 C:\Users\Ángel\source\repos\Proyecto\EventTracer\bin\Debug\netcoreapp2.1\EventTracer.dll
 C:\Users\Ángel\source\repos\Proyecto\EventTracer\bin\Debug\netcoreapp2.1\EventTracer.pdb
+C:\Users\Ángel\source\repos\Proyecto\EventTracer\bin\Debug\netcoreapp2.1\System.Windows.Forms.dll
+C:\Users\Ángel\source\repos\Proyecto\EventTracer\obj\Debug\netcoreapp2.1\EventTracer.csproj.CopyComplete
