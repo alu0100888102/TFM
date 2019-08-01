@@ -20,10 +20,10 @@ namespace EventTracer
 {
     class Tracingfromfile
     {
-        static List<int> tracking;
-        static TraceEventSession kernelSession;
-        static Process baseProcess;
-        static string dumpfile;
+        static List<int> tracking; //Process being tracked
+        static TraceEventSession kernelSession; //Session
+        static Process baseProcess; //This will execute the file
+        static string dumpfile; //Output file, JSON format
 
         static void Main(string[] args)
         {
@@ -34,19 +34,19 @@ namespace EventTracer
                 return;
             }
 
+            //Get the file to analyze
             string filePath = string.Empty;
             Console.WriteLine("File to analyze");
-//            filePath = Console.ReadLine();
-            filePath = "E:\\Games\\League of Legends\\LeagueClient.exe";
+            filePath = Console.ReadLine();
             if (!File.Exists(filePath))
             {
                 Console.WriteLine("The input file {0} does not exists", filePath);
                 return;
             }
 
+            //Get output file
             Console.WriteLine("Output file");
-//            dumpfile = Console.ReadLine();
-            dumpfile = "E:\\DumpPile\\test1.txt";
+            dumpfile = Console.ReadLine();
             try
             {
                 System.IO.File.WriteAllText(dumpfile, string.Empty);
@@ -61,19 +61,20 @@ namespace EventTracer
             tracer.begin();
         }
 
+        //Start the tracking
         public void begin()
         {
 
             try
             {
                 ThreadStart ths = new ThreadStart(() => {
-                    Thread.Sleep(2000);
+                    Thread.Sleep(1000);
                     baseProcess.Start();
-                    Tracingfromfile.tracking.Add(baseProcess.Id);
+                    Tracingfromfile.tracking.Add(baseProcess.Id); //Starts tracking the process we created
                 });
                 Thread th = new Thread(ths);
                 th.Start();
-                kernelSession.Source.Process();
+                kernelSession.Source.Process(); //Starts the tracer
             }
             catch (Exception e)
             {
@@ -81,6 +82,7 @@ namespace EventTracer
             }
         }
 
+        //Builder
         public Tracingfromfile(string filename)
         {
 
