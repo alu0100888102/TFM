@@ -16,8 +16,8 @@ using Microsoft.Diagnostics.Tracing.Parsers.Kernel;
 using System.Threading;
 using System.IO;
 
-namespace EventTracer
-{
+//namespace EventTracer
+
     class Tracingfromfile
     {
         static List<int> tracking; //Process being tracked
@@ -558,4 +558,3 @@ namespace EventTracer
         }
 
     }
-}
