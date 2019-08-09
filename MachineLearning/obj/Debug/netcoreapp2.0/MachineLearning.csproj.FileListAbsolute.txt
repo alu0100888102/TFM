@@ -6,3 +6,6 @@ C:\Users\Ángel\source\repos\Proyecto\MachineLearning\obj\Debug\netcoreapp2.0\Ma
 C:\Users\Ángel\source\repos\Proyecto\MachineLearning\obj\Debug\netcoreapp2.0\MachineLearning.csproj.CoreCompileInputs.cache
 C:\Users\Ángel\source\repos\Proyecto\MachineLearning\obj\Debug\netcoreapp2.0\MachineLearning.AssemblyInfoInputs.cache
 C:\Users\Ángel\source\repos\Proyecto\MachineLearning\obj\Debug\netcoreapp2.0\MachineLearning.AssemblyInfo.cs
+C:\Users\Ángel\source\repos\Proyecto\MachineLearning\bin\Debug\netcoreapp2.0\MachineLearning.pdb
+C:\Users\Ángel\source\repos\Proyecto\MachineLearning\obj\Debug\netcoreapp2.0\MachineLearning.dll
+C:\Users\Ángel\source\repos\Proyecto\MachineLearning\obj\Debug\netcoreapp2.0\MachineLearning.pdb

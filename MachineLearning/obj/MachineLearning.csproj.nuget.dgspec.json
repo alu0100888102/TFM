@@ -53,6 +53,18 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[12.0.2, )"
+            },
+            "SciSharp.TensorFlow.Redist": {
+              "target": "Package",
+              "version": "[1.14.0, )"
+            },
+            "SciSharp.TensorFlow.Redist-Windows-GPU": {
+              "target": "Package",
+              "version": "[1.14.0, )"
+            },
+            "TensorFlow.NET": {
+              "target": "Package",
+              "version": "[0.10.10, )"
             }
           },
           "imports": [
