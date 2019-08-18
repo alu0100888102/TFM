@@ -42,3 +42,7 @@ C:\Users\Ángel\source\repos\Proyecto\EventTracer\bin\Debug\Microsoft.Diagnostic
 C:\Users\Ángel\source\repos\Proyecto\EventTracer\bin\Debug\Microsoft.Diagnostics.Tracing.TraceEvent.xml
 C:\Users\Ángel\source\repos\Proyecto\EventTracer\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Ángel\source\repos\Proyecto\EventTracer\obj\Debug\EventTracer.csproj.CopyComplete
+C:\Users\Ángel\source\repos\Proyecto\EventTracer\bin\Debug\EventTracer.exe.manifest
+C:\Users\Ángel\source\repos\Proyecto\EventTracer\bin\Debug\EventTracer.application
+C:\Users\Ángel\source\repos\Proyecto\EventTracer\obj\Debug\EventTracer.exe.manifest
+C:\Users\Ángel\source\repos\Proyecto\EventTracer\obj\Debug\EventTracer.application
