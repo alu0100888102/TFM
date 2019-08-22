@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EventTracer.exe" size="11672">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EventTracer.exe" size="12184">
       <assemblyIdentity name="EventTracer" version="1.1.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Jg9MX7TlsXiUBH4cs9cSut9fBkhUU0imRX/Qpboy9tg=</dsig:DigestValue>
+        <dsig:DigestValue>IB6K5/4yFXpmM63aeuXuEntpT9X8i8B/CRhYstOrKLE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

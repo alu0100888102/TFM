@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Security.Permissions;
 using Newtonsoft.Json;
 using System.Xml;
+using System.Windows.Forms;
 
 using Microsoft.Diagnostics.Symbols;
 using Microsoft.Diagnostics.Tracing;
@@ -25,6 +26,7 @@ namespace EventTracer
         static Process baseProcess; //This will execute the file
         static string dumpfile; //Output file, JSON format
         static XmlDocument d;   //XmlDocument that will access to data
+        static OpenFileDialog finder;
 
         static void Main(string[] args)
         {
@@ -35,33 +37,50 @@ namespace EventTracer
                 Console.ReadLine();
                 return;
             }
-
-            //Get the file to analyze
-            string filePath = string.Empty;
-            Console.WriteLine("File to analyze");
-            filePath = Console.ReadLine();
-            if (!File.Exists(filePath))
+            Thread t = new Thread((ThreadStart)(() =>
             {
-                Console.WriteLine("The input file {0} does not exists", filePath);
-                Console.ReadLine();
-                return;
-            }
+                //Get the file to analyze
+                string filePath = string.Empty;
+                Tracingfromfile.finder = new OpenFileDialog();
+                finder.Title = "File to analyze";
+                Console.WriteLine("File to analyze");
+                finder.ShowDialog();
+                filePath = finder.FileName;
+                if (!File.Exists(filePath))
+                {
+                    Console.WriteLine("The input file {0} does not exists", filePath);
+                    Console.ReadLine();
+                    return;
+                }
+                Console.WriteLine(filePath);
 
-            //Get output file
-            Console.WriteLine("Output file");
-            dumpfile = Console.ReadLine();
-            try
-            {
-                System.IO.File.WriteAllText(dumpfile, string.Empty);
-            }
-            catch (IOException e)
-            {
-                Console.WriteLine("Unable to open Output File: {0}", e);
-                return;
-            }
 
-            Tracingfromfile tracer = new Tracingfromfile(filePath);
-            tracer.begin();
+                //Get output file
+                Console.WriteLine("Output file");
+                finder.Title = "Output file";
+                finder.ShowDialog();
+                dumpfile = finder.FileName;
+                if(dumpfile == filePath)
+                {
+                    Console.WriteLine("Choose an output file");
+                    return;
+                }
+                Console.WriteLine(dumpfile);
+                try
+                {
+                    System.IO.File.WriteAllText(dumpfile, string.Empty);
+                }
+                catch (IOException e)
+                {
+                    Console.WriteLine("Unable to open Output File: {0}", e);
+                    return;
+                }
+
+                Tracingfromfile tracer = new Tracingfromfile(filePath);
+                tracer.begin();
+            }));
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
         }
 
         //Start the tracking
@@ -172,7 +191,7 @@ namespace EventTracer
                 Tracingfromfile.tracking.Add(data.ProcessID);
                 Console.WriteLine("Remaining process: {0}", Tracingfromfile.tracking.Count());
                 Tracingfromfile.d.LoadXml(data.Dump());
-                File.AppendAllText(@Tracingfromfile.dumpfile, "{\"ID\":\"" + data.ProcessID + "\",\"Parent\":\"" + data.ParentID + ",\"Type\":\"ProcessStarted\",\"Payload\"" + JsonConvert.SerializeXmlNode(d) + "}");
+                File.AppendAllText(@Tracingfromfile.dumpfile, "{\"ID\":\"" + data.ProcessID + "\",\"Parent\":\"" + data.ParentID + "\",\"Type\":\"ProcessStarted\",\"Payload\"" + JsonConvert.SerializeXmlNode(d) + "}");
             }
 
         }

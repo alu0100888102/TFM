@@ -46,3 +46,5 @@ C:\Users\Ángel\source\repos\Proyecto\EventTracer\bin\Debug\EventTracer.exe.mani
 C:\Users\Ángel\source\repos\Proyecto\EventTracer\bin\Debug\EventTracer.application
 C:\Users\Ángel\source\repos\Proyecto\EventTracer\obj\Debug\EventTracer.exe.manifest
 C:\Users\Ángel\source\repos\Proyecto\EventTracer\obj\Debug\EventTracer.application
+C:\Users\Ángel\source\repos\Proyecto\EventTracer\obj\Debug\Interop.DXTRANSLib.dll
+C:\Users\Ángel\source\repos\Proyecto\EventTracer\obj\Debug\EventTracer.csproj.ResolveComReference.cache
