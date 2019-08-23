@@ -191,7 +191,7 @@ namespace EventTracer
                 Tracingfromfile.tracking.Add(data.ProcessID);
                 Console.WriteLine("Remaining process: {0}", Tracingfromfile.tracking.Count());
                 Tracingfromfile.d.LoadXml(data.Dump());
-                File.AppendAllText(@Tracingfromfile.dumpfile, "{\"ID\":\"" + data.ProcessID + "\",\"Parent\":\"" + data.ParentID + "\",\"Type\":\"ProcessStarted\",\"Payload\"" + JsonConvert.SerializeXmlNode(d) + "}");
+                File.AppendAllText(@Tracingfromfile.dumpfile, "{\"ID\":\"" + data.ProcessID + "\",\"Parent\":\"" + data.ParentID + "\",\"Type\":\"ProcessStarted\",\"Payload\":" + JsonConvert.SerializeXmlNode(d) + "}\n");
             }
 
         }
