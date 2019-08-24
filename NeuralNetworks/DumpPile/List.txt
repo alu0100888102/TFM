@@ -35,4 +35,15 @@ good7: Acrobat Reader
 good8: VirtualBox
 good9: PyCharm
 good10: Eclipse
+good11: Atom
+good12: auto-clicker
+good13: Autodesk Fusion 360
+good14: blender
+good15: Twitch
+good16: IKON
+good17: MeshMixer
+good18: osu!
+good19: Easy video logo remover
+good20: Discord
+
 

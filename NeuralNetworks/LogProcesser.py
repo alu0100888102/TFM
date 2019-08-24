@@ -1,17 +1,13 @@
-import tensorflow as tf
-import pandas as pd
-import numpy as np
 import re
 import json
 
-for i in range(10):
+for i in range(20):
     e = i+1
     filename = "good" + str(e) + ".txt"
 
     f = open("DumpPile\\"+filename, "r")
     logs = []
     for x in f:
-        print(x)
         logs.append(json.loads(x))
 
     entries = []
@@ -26,12 +22,14 @@ for i in range(10):
            t = log["Event"]
         data["PID"] = int(t["@PID"])
         data["TID"] = int(t["@TID"])
-        data["TS"] = int(re.sub(",", "", t["@TimeStampQPC"]))
+        data["TS"] = int(re.sub("\.", "", re.sub(",", "", t["@TimeStampQPC"])))
         data["PN"] = int(t["@ProcessorNumber"])
         data["OPC"] = int(t["@Opcode"])
-        data["PL"] = re.sub(format, ereaser, t["Payload"]["#text"])
-        data["PL"] = re.sub("[^0-9a-fA-F]", "", data["PL"])
-        data["PL"] = int(data["PL"], 16)
+        temp = re.sub(format, ereaser, t["Payload"]["#text"])
+        temp = re.sub("[^0-9a-fA-F]", "", temp)
+        temp = int(temp, 16)
+        data["PL"] = hash(temp)
+
         entries.append(data)
 
     print(str(e)+": "+ str(entries))
