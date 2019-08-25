@@ -1,9 +1,24 @@
 import re
 import json
 
-for i in range(20):
+name = "good"
+numberbot = 21
+numbertop = 22
+
+def split(payload):
+    temp = str(payload)
+    out = []
+    for i in range(60):
+        r = temp[int(i*9) : int((i+1)*9)]
+        for j in range(len(r), 9):
+            r += "0"
+        out.append(int(r))
+    return out
+
+
+for i in range(numberbot-1, numbertop):
     e = i+1
-    filename = "good" + str(e) + ".txt"
+    filename = name + str(e) + ".txt"
 
     f = open("DumpPile\\"+filename, "r")
     logs = []
@@ -35,3 +50,4 @@ for i in range(20):
     print(str(e)+": "+ str(entries))
     f = open("ProcessedLogs\\"+filename, "w+")
     f.write(str(entries))
+

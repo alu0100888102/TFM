@@ -45,5 +45,8 @@ good17: MeshMixer
 good18: osu!
 good19: Easy video logo remover
 good20: Discord
-
-
+good21: League of Legends installer EUW
+good22: Mine-imator 1.2.4 installer
+good23: rkill
+good24: rkill64
+good25: video-converter-ultimate_setup_full857
