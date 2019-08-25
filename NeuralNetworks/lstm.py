@@ -8,7 +8,7 @@ import numpy as np
 def loaddata():
     d = []
     l = []
-    for e in range(10):
+    for e in range(20):
         filename1 = "bad" + str(e+1) + ".txt"
         filename2 = "good" + str(e+1) + ".txt"
         f = open("ProcessedLogs\\"+filename1, "r")
@@ -29,21 +29,21 @@ def loaddata():
     print(l)
 
     nlogs = len(d)
-    npdata = [[],[],[],[],[],[]]
+    npdata = []
     nplabels = [[],[]]
     for i in range(nlogs):
-        npdata[0].append(d[i]["PID"])
-        npdata[1].append(d[i]["TID"])
-        npdata[2].append(d[i]["TS"])
-        npdata[3].append(d[i]["PN"])
-        npdata[4].append(d[i]["OPC"])
-        npdata[5].append(d[i]["PL"])
+        npdata.append([
+            d[i]["PID"],
+            d[i]["TID"],
+            d[i]["TS"],
+            d[i]["PN"],
+            d[i]["OPC"],
+            d[i]["PL"]
+        ])
         if l[i] == 0:
-            nplabels[0].append(1)
-            nplabels[1].append(0)
+            nplabels.append([1, 0])
         else:
-            nplabels[0].append(0)
-            nplabels[1].append(1)
+            nplabels.append([0, 1])
 
     npdata = np.array(npdata, dtype=np.float64)
     nplabels = np.array(l, dtype=np.float32)
@@ -72,3 +72,13 @@ model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 model.fit(trainingdata[0], trainingdata[1], steps_per_epoch=1000)
+
+good = 0
+bad = 0
+for x in trainingdata[1]:
+    if x < 1:
+        good += 1
+    else:
+        bad += 1
+
+print("Good: " + str(good) + ", Bad: " + str(bad))
