@@ -10,15 +10,15 @@ trainingdata = dp.loaddata_hash(route, fro, to)
 print(trainingdata)
 
 model = keras.Sequential([
-    keras.layers.Dense(6),
+    keras.layers.Dense(2),
     keras.layers.Dense(512, activation=tf.nn.relu),
     keras.layers.Dense(2, activation=tf.nn.softmax)
 ])
-model.compile(optimizer='adam',
+model.compile(optimizer=keras.optimizers.Adagrad(),
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
-model.fit(trainingdata[0], trainingdata[1], steps_per_epoch=91857, epochs=5)
+model.fit(trainingdata[0], trainingdata[1], epochs=150)
 
 good = 0
 bad = 0

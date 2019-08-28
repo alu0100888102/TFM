@@ -20,7 +20,7 @@ bad19: matsnu
 bad20: petrwrap
 bad21: Radmant
 bad22: Unnamed_0
-bad23: wannacry
+bad23: gs-auto-clicker-3-1-4
 bad24: Rombertik
 bad25: trojan.Asprox
 

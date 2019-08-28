@@ -2,8 +2,8 @@ import re
 import json
 
 name = "good"
-numberbot = 21
-numbertop = 22
+numberbot = 23
+numbertop = 23
 
 def split(payload):
     temp = str(payload)
@@ -43,7 +43,7 @@ for i in range(numberbot-1, numbertop):
         temp = re.sub(format, ereaser, t["Payload"]["#text"])
         temp = re.sub("[^0-9a-fA-F]", "", temp)
         temp = int(temp, 16)
-        data["PL"] = hash(temp)
+        data["PL"] = split(temp)
 
         entries.append(data)
 
