@@ -115,10 +115,10 @@ def loaddata_split_LSTM(route, fro, to):
         rerex = []
         for log in d:
             temporal = []
-            temporal.append(log["PID"])
-            temporal.append(log["TID"])
-            temporal.append(log["TS"])
-            temporal.append(log["PN"])
+            #temporal.append(log["PID"])
+            #temporal.append(log["TID"])
+            #temporal.append(log["TS"])
+            #temporal.append(log["PN"])
             temporal.append(log["OPC"])
             for k in log["PL"]:
                 temporal.append(k)
@@ -161,10 +161,10 @@ def loaddata_split_LSTM(route, fro, to):
         rerex = []
         for log in d:
             temporal = []
-            temporal.append(log["PID"])
-            temporal.append(log["TID"])
-            temporal.append(log["TS"])
-            temporal.append(log["PN"])
+            #temporal.append(log["PID"])
+            #temporal.append(log["TID"])
+            #temporal.append(log["TS"])
+            #temporal.append(log["PN"])
             temporal.append(log["OPC"])
             for k in log["PL"]:
                 temporal.append(k)
@@ -228,18 +228,6 @@ def loaddata_hash_LSTM(route, fro, to):
                 nplabels.append(1)
                 j = -1
             j += 1
-        #for i in range(len(rerex), 100):
-        #    temporal = []
-        #    temporal.append(0)
-        #    temporal.append(0)
-        #    temporal.append(0)
-        #    temporal.append(0)
-        #    temporal.append(0)
-        #    temporal.append(0)
-        #    rerex.append(temporal)
-        #nplabels.append(1)
-
-        #npdata.append(np.array(rerex, dtype=np.float64))
 
 
     for e in range(fro-1, to):
@@ -272,20 +260,96 @@ def loaddata_hash_LSTM(route, fro, to):
                 nplabels.append(0)
                 j = -1
             j += 1
-        #for i in range(len(rerex), 100):
-        #    temporal = []
-        #    temporal.append(0)
-        #    temporal.append(0)
-        #    temporal.append(0)
-        #    temporal.append(0)
-        #    temporal.append(0)
-        #    temporal.append(0)
-        #    rerex.append(temporal)
-        #nplabels.append(0)
-        #npdata.append(np.array(rerex, dtype=np.float64))
 
     npdata = np.array(npdata)
     nplabels = np.array(nplabels, dtype=np.float32)
     out =[npdata, nplabels]
     print(out)
+    return out
+
+
+def loaddata_split_LSTM_moving(route, fro, to, size):
+    npdata = []
+    nplabels = []
+    for e in range(fro-1, to):
+        d = []
+        l = []
+        filename1 = "bad" + str(e+1) + ".txt"
+        f = open(route+filename1, "r")
+        x = f.read()
+        x = re.sub("\'", "\"", x)
+        t = json.loads(x)
+
+        PIDlist = dict()
+        for log in t:
+            if log["PID"] not in PIDlist:
+                s = len(PIDlist)
+                PIDlist[log["PID"]] = s
+                d.append([])
+                l.append([])
+
+            pos = PIDlist[log["PID"]]
+            d[pos].append(log)
+            l[pos].append(1)
+
+        for process in d:
+            if len(process) >= size:
+                bot = 0
+                top = size
+                while len(process) > top:
+                    rerex = []
+                    for y in range(bot, top):
+                        temporal = [process[y]["EN"]]
+                        for k in process[y]["PL"]:
+                            temporal.append(k)
+                        rerex.append(temporal)
+                    npdata.append(np.array(rerex, dtype=np.float64))
+                    print(str(bot) + ": " + str(top) + " : " + str(npdata[len(npdata)-1].shape))
+                    nplabels.append(1)
+                    bot += 1
+                    top += 1
+
+
+    for e in range(fro-1, to):
+        d = []
+        l = []
+        filename1 = "good" + str(e+1) + ".txt"
+        f = open(route+filename1, "r")
+        x = f.read()
+        x = re.sub("\'", "\"", x)
+        t = json.loads(x)
+
+        PIDlist = dict()
+        for log in t:
+            if log["PID"] not in PIDlist:
+                s = len(PIDlist)
+                PIDlist[log["PID"]] = s
+                d.append([])
+                l.append([])
+
+            pos = PIDlist[log["PID"]]
+            d[pos].append(log)
+            l[pos].append(1)
+
+
+        for process in d:
+            if len(process) >= size:
+                bot = 0
+                top = size
+                while len(process) > top:
+                    rerex = []
+                    for y in range(bot, top):
+                        temporal = [process[y]["EN"]]
+                        for k in process[y]["PL"]:
+                            temporal.append(k)
+                        rerex.append(temporal)
+                    npdata.append(np.array(rerex, dtype=np.float64))
+                    print(str(bot) + ": " + str(top) + " : " + str(npdata[len(npdata)-1].shape))
+                    nplabels.append(0)
+                    bot += 1
+                    top += 1
+
+    nplabels = np.array(nplabels, dtype=np.float32)
+    out = [np.array(npdata), nplabels]
+    #print(out)
     return out

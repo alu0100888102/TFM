@@ -19,7 +19,7 @@ model.compile(optimizer=keras.optimizers.RMSprop(lr=0.05),
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
-model.fit(trainingdata[0], trainingdata[1], epochs=200)
+model.fit(trainingdata[0], trainingdata[1], epochs=100)
 
 good = 0
 bad = 0
