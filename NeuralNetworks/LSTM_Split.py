@@ -6,13 +6,13 @@ fro = 1
 to = 20
 route = "ProcessedLogs\\Splitted\\"
 
-trainingdata = dp.loaddata_split_LSTM_moving(route, fro, to, 100)
-testdata = dp.loaddata_split_LSTM_moving_halfandhalf(route, to+1, 25, 100)
+trainingdata = dp.loaddata_split_LSTM(route, fro, to, 100)
+testdata = dp.loaddata_split_LSTM(route, to+1, 25, 100)
 print(trainingdata[0].shape)
 print(trainingdata[1].shape)
 
 model = keras.Sequential([
-    keras.layers.LSTM(1),
+    keras.layers.LSTM(512),
     keras.layers.Dense(2, activation=tf.nn.softmax)
 ])
 model.compile(optimizer=keras.optimizers.Adagrad(),
@@ -30,7 +30,7 @@ for x in trainingdata[1]:
         bad += 1
 
 print("Good: " + str(good) + ", Bad: " + str(bad))
-model.save("Models\LSTMSplittedTemporal_SuperlowSize.mdl")
+model.save("Models\LSTMSplittedTemporal_NewGen.mdl")
 
 loss, accu = model.evaluate(testdata[0], testdata[1])
 print("Test samples accuracy:", accu)
