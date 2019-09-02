@@ -4,7 +4,7 @@ import DataProcess as dp
 
 fro = 1
 to = 20
-route = "ProcessedLogs/Splitted/"
+route = "ProcessedLogs\\Splitted\\"
 
 trainingdata = dp.loaddata_split_LSTM_moving(route, fro, to, 100)
 testdata = dp.loaddata_split_LSTM_moving_halfandhalf(route, to+1, 25, 50)
