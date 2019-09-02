@@ -4,7 +4,7 @@ import DataProcess as dp
 
 fro = 1
 to = 20
-route = "ProcessedLogs\\Splitted\\"
+route = "ProcessedLogs/Splitted/"
 
 trainingdata = dp.loaddata_split_LSTM_moving(route, fro, to, 100)
 testdata = dp.loaddata_split_LSTM_moving_halfandhalf(route, to+1, 25, 50)
@@ -12,14 +12,14 @@ print(trainingdata[0].shape)
 print(trainingdata[1].shape)
 
 model = keras.Sequential([
-    keras.layers.LSTM(1),
+    keras.layers.LSTM(16),
     keras.layers.Dense(2, activation=tf.nn.softmax)
 ])
 model.compile(optimizer=keras.optimizers.Adagrad(),
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
-model.fit(trainingdata[0], trainingdata[1], epochs=200)
+model.fit(trainingdata[0], trainingdata[1], epochs=100)
 
 good = 0
 bad = 0
