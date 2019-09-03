@@ -5,7 +5,7 @@ bad4: bat.drop
 bad5: bat.pot.a
 bad6: bat.skul
 bad7: dyre
-bad8: Khelios
+bad8: Green_Caterpillar
 bad9: Khelios
 bad10: Neurevt 1.7.0.1
 bad11: Nitlove
