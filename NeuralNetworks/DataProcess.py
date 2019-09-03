@@ -117,9 +117,9 @@ def loaddata_split_LSTM(route, fro, to, size):
         rerex = []
         for log in d:
             temporal = []
-            #temporal.append(log["PID"])
-            #temporal.append(log["TID"])
-            #temporal.append(log["TS"])
+            temporal.append(log["PID"])
+            temporal.append(log["TID"])
+            temporal.append(log["TS"])
             #temporal.append(log["PN"])
             #temporal.append(log["OPC"])
             temporal.append(log["EN"])
@@ -153,9 +153,9 @@ def loaddata_split_LSTM(route, fro, to, size):
         rerex = []
         for log in d:
             temporal = []
-            #temporal.append(log["PID"])
-            #temporal.append(log["TID"])
-            #temporal.append(log["TS"])
+            temporal.append(log["PID"])
+            temporal.append(log["TID"])
+            temporal.append(log["TS"])
             #temporal.append(log["PN"])
             #temporal.append(log["OPC"])
             temporal.append(log["EN"])

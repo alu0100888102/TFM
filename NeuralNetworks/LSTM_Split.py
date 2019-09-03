@@ -4,12 +4,12 @@ import DataProcess as dp
 import random as rd
 import numpy as np
 
-fro = 6
-to = 25
+fro = 5
+to = 20
 route = "ProcessedLogs/Splitted/"
 
 trainingdata = dp.loaddata_split_LSTM(route, fro, to, 50)
-testdata = dp.loaddata_split_LSTM(route, 1, 5, 100)
+testdata = dp.loaddata_split_LSTM(route, 21, 25, 100)
 print(trainingdata[0].shape)
 print(testdata[0].shape)
 
