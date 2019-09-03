@@ -31,6 +31,7 @@ model = keras.models.load_model("Models\\LSTMSplittedTemporal_NewGen.mdl")
 
 finaltests = dp.loaddata_hash_LSTM_wholefile(route, 1, 25, 25)
 TP, TN, FP, FN = 0, 0, 0, 0
+results = {}
 for i in range(50):
     e = np.array(finaltests[0][i])
     predictions = model.predict(e)
@@ -56,7 +57,12 @@ for i in range(50):
             TN += 1
         else:
             FN += 1
+    results[maxbad] = finaltests[1][i]
 print ("TP: " + str(TP))
 print ("TN: " + str(TN))
 print ("FP: " + str(FP))
 print ("FN: " + str(FN))
+r = sorted(results.keys())
+
+for e in r:
+    print(str(results[e]) + ": " + str(e))
