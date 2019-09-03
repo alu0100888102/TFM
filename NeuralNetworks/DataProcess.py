@@ -1,7 +1,7 @@
 import re
 import json
 import numpy as np
-
+import random as rd
 
 def loaddata_hash(route, fro, to):
     d = []
