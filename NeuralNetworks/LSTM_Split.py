@@ -5,7 +5,7 @@ import random as rd
 import numpy as np
 
 fro = 1
-to = 2
+to = 25
 route = "ProcessedLogs/Splitted/"
 
 trainingdata = dp.loaddata_split_LSTM(route, fro, to, 50)
