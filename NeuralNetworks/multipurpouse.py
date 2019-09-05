@@ -1,6 +1,8 @@
 import re
 import json
 import numpy as np
+import tensorflow as tf
+from tensorflow import keras
 
 def loaddata(route, fro, to):
     d = []
@@ -38,8 +40,9 @@ def loaddata(route, fro, to):
 
     return out
 
-e = loaddata("ProcessedLogs\\Splitted\\", 1, 25)
-l = sorted(e.keys())
+print(keras.metrics.FalseNegatives())
+#e = loaddata("ProcessedLogs\\Splitted\\", 1, 25)
+#l = sorted(e.keys())
 
-for t in l:
-    print(str(t) + ": " + str(e[t]))
+#for t in l:
+    #print(str(t) + ": " + str(e[t]))

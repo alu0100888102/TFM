@@ -4,12 +4,12 @@ import DataProcess as dp
 import random as rd
 import numpy as np
 
-fro = 5
-to = 20
+fro = 1
+to = 2
 route = "ProcessedLogs/Splitted/"
 
 trainingdata = dp.loaddata_split_LSTM(route, fro, to, 50)
-testdata = dp.loaddata_split_LSTM(route, 21, 25, 100)
+testdata = dp.loaddata_split_LSTM(route, 3, 4, 100)
 print(trainingdata[0].shape)
 print(testdata[0].shape)
 
@@ -21,7 +21,7 @@ model.compile(optimizer=keras.optimizers.RMSprop(lr=0.05),
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
-model.fit(trainingdata[0], trainingdata[1], epochs=200)
+model.fit(trainingdata[0], trainingdata[1], epochs=100)
 
 good = 0
 bad = 0
