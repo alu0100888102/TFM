@@ -525,9 +525,9 @@ def loaddata_hash_LSTM_wholefile(route, fro, to, size):
         frog = []
         for log in d:
             temporal = []
-            # temporal.append(log["PID"])
-            # temporal.append(log["TID"])
-            # temporal.append(log["TS"])
+            temporal.append(log["PID"])
+            temporal.append(log["TID"])
+            temporal.append(log["TS"])
             # temporal.append(log["PN"])
             # temporal.append(log["OPC"])
             temporal.append(log["EN"])
@@ -559,9 +559,9 @@ def loaddata_hash_LSTM_wholefile(route, fro, to, size):
         frog = []
         for log in d:
             temporal = []
-            # temporal.append(log["PID"])
-            # temporal.append(log["TID"])
-            # temporal.append(log["TS"])
+            temporal.append(log["PID"])
+            temporal.append(log["TID"])
+            temporal.append(log["TS"])
             # temporal.append(log["PN"])
             # temporal.append(log["OPC"])
             temporal.append(log["EN"])
@@ -659,6 +659,85 @@ def loaddata_split_LSTM_moving_crossval(route, fro, to, size):
                     nplabels.append(0)
                     bot += 1
                     top += 1
+
+    out = []
+    for i in range(len(nplabels)):
+        out.append([npdata[i], nplabels[i]])
+    return out
+
+def loaddata_split_LSTM_crossval(route, fro, to, size):
+    npdata = []
+    nplabels = []
+    size = size-1
+    for e in range(fro-1, to):
+        d = []
+        l = []
+        filename1 = "bad" + str(e+1) + ".txt"
+        print(filename1)
+        f = open(route+filename1, "r")
+        x = f.read()
+        x = re.sub("\'", "\"", x)
+        t = json.loads(x)
+
+        for log in t:
+            d.append(log)
+            l.append(1)
+
+        j = 0
+        rerex = []
+        for log in d:
+            temporal = []
+            temporal.append(log["PID"])
+            temporal.append(log["TID"])
+            temporal.append(log["TS"])
+            #temporal.append(log["PN"])
+            #temporal.append(log["OPC"])
+            temporal.append(log["EN"])
+            for k in log["PL"]:
+                temporal.append(k)
+            rerex.append(temporal)
+            if j == size:
+                print (rerex)
+                npdata.append(np.array(rerex, dtype=np.float64))
+                rerex = []
+                nplabels.append(1)
+                j = -1
+            j += 1
+    print(len(npdata))
+
+    for e in range(fro-1, to):
+        d = []
+        l = []
+        filename1 = "good" + str(e+1) + ".txt"
+        print(filename1)
+        f = open(route+filename1, "r")
+        x = f.read()
+        x = re.sub("\'", "\"", x)
+        t = json.loads(x)
+
+        for log in t:
+            d.append(log)
+            l.append(0)
+
+        j = 0
+        rerex = []
+        for log in d:
+            temporal = []
+            temporal.append(log["PID"])
+            temporal.append(log["TID"])
+            temporal.append(log["TS"])
+            #temporal.append(log["PN"])
+            #temporal.append(log["OPC"])
+            temporal.append(log["EN"])
+            for k in log["PL"]:
+                temporal.append(k)
+            rerex.append(temporal)
+            if j == size:
+                npdata.append(np.array(rerex, dtype=np.float64))
+                rerex = []
+                nplabels.append(0)
+                j = -1
+            j += 1
 
     out = []
     for i in range(len(nplabels)):

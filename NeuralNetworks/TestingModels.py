@@ -7,29 +7,30 @@ fro = 1
 to = 20
 route = "ProcessedLogs\\Splitted\\"
 
-#testdata = dp.loaddata_split_LSTM(route, 21, 25, 100)
+testdata = dp.loaddata_split_LSTM(route, 1, 25, 50)
 
-#print(testdata[0].shape)
-#print(testdata[1].shape)
+print(testdata[0].shape)
+print(testdata[1].shape)
 
 
-model = keras.models.load_model("Models\\LSTMSplittedTemporal_NewGen.mdl")
+model = keras.models.load_model("Models\\LSTMcross.mdl")
 
-#loss, accu = model.evaluate(testdata[0], testdata[1])
-#print("Test samples accuracy:", accu)
-#print("Test loss accuracy:", loss)
+loss, accu = model.evaluate(testdata[0], testdata[1])
+print("Test samples accuracy:", accu)
+print("Test loss accuracy:", loss)
 
-#good = 0
-#bad = 0
-#for x in testdata[1]:
-#    if x < 1:
-#        good += 1
-#    else:
-#        bad += 1
+good = 0
+bad = 0
+for x in testdata[1]:
+    if x < 1:
+        good += 1
+    else:
+          bad += 1
 
-#print("Good: " + str(good) + ", Bad: " + str(bad))
+print("Good: " + str(good) + ", Bad: " + str(bad))
 
-finaltests = dp.loaddata_hash_LSTM_wholefile(route, 1, 25, 25)
+finaltests = dp.loaddata_hash_LSTM_wholefile(route, 1, 25, 50)
+print(finaltests[0][0].shape)
 TP, TN, FP, FN = 0, 0, 0, 0
 results = {}
 for i in range(50):
@@ -37,14 +38,30 @@ for i in range(50):
     predictions = model.predict(e)
     maxgood = 0
     maxbad = 0
+    avgbad = 0
+    avggood = 0
+    count = 0
+    acc = 0
     for p in predictions:
+        acc += p[1]
+        acc = acc / 2
+        count += 1
+        avggood += p[0]
+        avgbad += p[1]
         if p[0] > maxgood:
             maxgood = p[0]
         if p[1] > maxbad:
             maxbad = p[1]
+        if acc > 0.5:
+            print("ALERT: " + str(finaltests[1][i]))
+            break
+    avgbad = avgbad/count
+    avggood = avggood/count
     print(str(finaltests[1][i]) + ":")
-    print("\tGOOD: " + str(maxgood))
-    print("\tBAD: " + str(maxbad))
+    print("\tGOOD max: " + str(maxgood))
+    print("\tBAD max: " + str(maxbad))
+    print("\tGOOD avg: " + str(avggood))
+    print("\tBAD avg: " + str(avgbad))
     if maxbad > 0.75:
         print("\t" + str(finaltests[1][i]) + " ==> BAD")
         if i < 25:

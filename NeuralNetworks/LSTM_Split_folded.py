@@ -5,12 +5,12 @@ import random as rd
 import math
 import numpy as np
 
-fro = 1
+fro = 6
 to = 25
 route = "ProcessedLogs\\Splitted\\"
 nfolds = 10
 
-trainingdata = dp.loaddata_split_LSTM_moving_crossval(route, fro, to, 100)
+trainingdata = dp.loaddata_split_LSTM_crossval(route, fro, to, 50)
 rd.shuffle(trainingdata)
 print(len(trainingdata))
 foldsize = int(len(trainingdata) / nfolds)
@@ -46,12 +46,13 @@ for i in range(nfolds):
     testresults[0].append(loss)
     testresults[1].append(accu)
 
-meanloss, meanaccu = 0
+meanaccu = 0
+meanloss = 0
 for k in range(nfolds):
-    print("Test" + str(k) + "==> loss:" + testresults[0][k] + "accuracy:" + testresults[1][k])
+    print("Test" + str(k) + "==> loss:" + str(testresults[0][k]) + "accuracy:" + str(testresults[1][k]))
     meanloss += testresults[0][k]
     meanaccu += testresults[1][k]
 meanloss = meanloss/nfolds
 meanaccu = meanaccu/nfolds
-print("Test mean ==> loss:" + meanloss + "accuracy:" + meanaccu)
-model.save("Models\\LSTMTemporalcross")
+print("Test mean ==> loss:" + str(meanloss) + " accuracy:" + str(meanaccu))
+model.save("Models\\LSTMcross.mdl")
