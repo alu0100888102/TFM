@@ -10,7 +10,7 @@ to = 25
 route = "ProcessedLogs\\Splitted\\"
 nfolds = 10
 
-trainingdata = dp.loaddata_split_LSTM_crossval(route, fro, to, 50)
+trainingdata = dp.loaddata_split_LSTM_moving_crossval(route, fro, to, 75)
 rd.shuffle(trainingdata)
 print(len(trainingdata))
 foldsize = int(len(trainingdata) / nfolds)
@@ -25,6 +25,7 @@ model.compile(optimizer=keras.optimizers.RMSprop(lr=0.01),
 
 testresults = [[], []]
 for i in range(nfolds):
+    print("Fold " + str(i+1) + " ====================================================================================================")
     start = i * foldsize
     end = (i+1) * foldsize
     training = [[], []]
@@ -41,7 +42,7 @@ for i in range(nfolds):
     training[0] = np.array(training[0])
     training[1] = np.array(training[1], dtype=np.float32)
 
-    model.fit(training[0], training[1], epochs=25)
+    model.fit(training[0], training[1], epochs=50)
     loss, accu = model.evaluate(test[0], test[1])
     testresults[0].append(loss)
     testresults[1].append(accu)
@@ -55,4 +56,4 @@ for k in range(nfolds):
 meanloss = meanloss/nfolds
 meanaccu = meanaccu/nfolds
 print("Test mean ==> loss:" + str(meanloss) + " accuracy:" + str(meanaccu))
-model.save("Models\\LSTMcross.mdl")
+model.save("Models\\LSTMcross4.mdl")

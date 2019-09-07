@@ -7,13 +7,13 @@ fro = 1
 to = 20
 route = "ProcessedLogs\\Splitted\\"
 
-testdata = dp.loaddata_split_LSTM(route, 1, 25, 50)
+testdata = dp.loaddata_split_LSTM_movig(route, 21, 25, 50)
 
 print(testdata[0].shape)
 print(testdata[1].shape)
 
 
-model = keras.models.load_model("Models\\LSTMcross.mdl")
+model = keras.models.load_model("Models\\LSTMcross3.mdl")
 
 loss, accu = model.evaluate(testdata[0], testdata[1])
 print("Test samples accuracy:", accu)
@@ -57,12 +57,7 @@ for i in range(50):
             break
     avgbad = avgbad/count
     avggood = avggood/count
-    print(str(finaltests[1][i]) + ":")
-    print("\tGOOD max: " + str(maxgood))
-    print("\tBAD max: " + str(maxbad))
-    print("\tGOOD avg: " + str(avggood))
-    print("\tBAD avg: " + str(avgbad))
-    if maxbad > 0.75:
+    if acc >= 0.5:
         print("\t" + str(finaltests[1][i]) + " ==> BAD")
         if i < 25:
             TP += 1

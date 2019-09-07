@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Security.Permissions;
 using Newtonsoft.Json;
 using System.Xml;
 using System.Windows.Forms;
-
-using Microsoft.Diagnostics.Symbols;
 using Microsoft.Diagnostics.Tracing;
 using Microsoft.Diagnostics.Tracing.Session;
 using Microsoft.Diagnostics.Tracing.Parsers;
@@ -42,8 +37,8 @@ namespace EventTracer
                 //Get the file to analyze
                 string filePath = string.Empty;
                 Tracingfromfile.finder = new OpenFileDialog();
-                finder.Title = "File to analyze";
-                Console.WriteLine("File to analyze");
+                finder.Title = "File to analyse";
+                Console.WriteLine("File to analyse");
                 finder.ShowDialog();
                 filePath = finder.FileName;
                 if (!File.Exists(filePath))
@@ -59,7 +54,7 @@ namespace EventTracer
                 Console.WriteLine("Output file");
                 finder.Title = "Output file";
                 finder.ShowDialog();
-                dumpfile = finder.FileName;
+                Tracingfromfile.dumpfile = finder.FileName;
                 if(dumpfile == filePath)
                 {
                     Console.WriteLine("Choose an output file");
@@ -68,7 +63,7 @@ namespace EventTracer
                 Console.WriteLine(dumpfile);
                 try
                 {
-                    System.IO.File.WriteAllText(dumpfile, string.Empty);
+                    File.WriteAllText(dumpfile, string.Empty);
                 }
                 catch (IOException e)
                 {
@@ -91,7 +86,7 @@ namespace EventTracer
             {
                 ThreadStart ths = new ThreadStart(() =>
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(2,000);
                     baseProcess.Start();
                     Console.WriteLine("Starting process");
                     Tracingfromfile.tracking.Add(baseProcess.Id); //Starts tracking the process we created
@@ -110,56 +105,47 @@ namespace EventTracer
         public Tracingfromfile(string filename)
         {
 
-            tracking = new List<int>();
-            d = new XmlDocument();
+            Tracingfromfile.tracking = new List<int>();
+            Tracingfromfile.d = new XmlDocument();
             //Initializing ETW session
-            kernelSession = new TraceEventSession("ChaChaRealSmooth");
+            Tracingfromfile.kernelSession = new TraceEventSession("ChaChaRealSmooth");
             Console.CancelKeyPress += delegate (object sender, ConsoleCancelEventArgs e) { kernelSession.Dispose(); };
 
             //subscribe to kernel events
             kernelSession.EnableKernelProvider(KernelTraceEventParser.Keywords.All);
 
             //Setup function handlers
-            kernelSession.Source.Kernel.ProcessStart += processStarted;
-            kernelSession.Source.Kernel.ProcessStop += processStopped;
-            kernelSession.Source.Kernel.UdpIpRecv += general;
-            kernelSession.Source.Kernel.UdpIpSend += general;
-            //kernelSession.Source.Kernel.UdpIpFail += general;
-            kernelSession.Source.Kernel.ImageLoadGroup += general;
-            kernelSession.Source.Kernel.ImageUnloadGroup += general;
-            kernelSession.Source.Kernel.SystemConfigNIC += general;
-            kernelSession.Source.Kernel.SystemConfigVideo += general;
-            kernelSession.Source.Kernel.SystemConfigServices += general;
-            kernelSession.Source.Kernel.SystemConfigPower += general;
-            kernelSession.Source.Kernel.SystemConfigIRQ += general;
-            kernelSession.Source.Kernel.SystemConfigPnP += general;
-            kernelSession.Source.Kernel.SystemConfigNetwork += general;
-            kernelSession.Source.Kernel.SystemConfigIDEChannel += general;
-            kernelSession.Source.Kernel.SystemConfigLogDisk += general;
-            kernelSession.Source.Kernel.SystemConfigPhyDisk += general;
-            //kernelSession.Source.Kernel.TcpIpConnectIPV6 += general;
-            //kernelSession.Source.Kernel.TcpIpDisconnectIPV6 += general;
-            kernelSession.Source.Kernel.PerfInfoISR += general;
-            kernelSession.Source.Kernel.PerfInfoDPC += general;
-            kernelSession.Source.Kernel.SystemConfigCPU += general;
-            kernelSession.Source.Kernel.DiskIORead += general;
-            kernelSession.Source.Kernel.DiskIOWrite += general;
-            kernelSession.Source.Kernel.DiskIODriverMajorFunctionCall += general;
-            kernelSession.Source.Kernel.DiskIODriverMajorFunctionReturn += general;
-            kernelSession.Source.Kernel.ThreadStartGroup += general;
-            kernelSession.Source.Kernel.ThreadEndGroup += general;
-            kernelSession.Source.Kernel.TcpIpSend += general;
-            kernelSession.Source.Kernel.TcpIpRecv += general;
-            //kernelSession.Source.Kernel.TcpIpDisconnect += general;
-            //kernelSession.Source.Kernel.TcpIpConnect += general;
-            kernelSession.Source.Kernel.TcpIpSendIPV6 += general;
-            kernelSession.Source.Kernel.TcpIpRecvIPV6 += general;
-            //kernelSession.Source.Kernel.FileIOMapFile += general;
-            //kernelSession.Source.Kernel.FileIOUnmapFile += general;
-            //kernelSession.Source.Kernel.FileIOWrite += general;
-            //kernelSession.Source.Kernel.FileIORead += general;
-            kernelSession.Source.Kernel.FileIOFileCreate += general;
-            kernelSession.Source.Kernel.FileIOFileDelete += general;
+            kernelSession.Source.Kernel.ProcessStart += processStarted; //Process Start
+            kernelSession.Source.Kernel.ProcessStop += processStopped;  //Process Stop
+            kernelSession.Source.Kernel.UdpIpRecv += general;   //Udp package recived
+            kernelSession.Source.Kernel.UdpIpSend += general;   //Udp package sent
+            kernelSession.Source.Kernel.ImageLoadGroup += general;  //DLL file loaded
+            kernelSession.Source.Kernel.ImageUnloadGroup += general;    //DLL file unloaded
+            kernelSession.Source.Kernel.SystemConfigNIC += general; //NIC configuration altered
+            kernelSession.Source.Kernel.SystemConfigVideo += general;   //Video configuration altered
+            kernelSession.Source.Kernel.SystemConfigServices += general;    //Services configuration altered
+            kernelSession.Source.Kernel.SystemConfigPower += general;   //Power configuration altered
+            kernelSession.Source.Kernel.SystemConfigIRQ += general; //IRQ configuration altered
+            kernelSession.Source.Kernel.SystemConfigPnP += general; //PnP configuration altered
+            kernelSession.Source.Kernel.SystemConfigNetwork += general; //Network configuration altered
+            kernelSession.Source.Kernel.SystemConfigIDEChannel += general;  //IDE Channel configuration altered
+            kernelSession.Source.Kernel.SystemConfigLogDisk += general; //Loggical Disk configuration altered
+            kernelSession.Source.Kernel.SystemConfigPhyDisk += general; //Physical Disk configuration altered
+            kernelSession.Source.Kernel.PerfInfoISR += general; //ISR periferers
+            kernelSession.Source.Kernel.PerfInfoDPC += general; //DPC periferers
+            kernelSession.Source.Kernel.SystemConfigCPU += general; //CPU configuration altered
+            kernelSession.Source.Kernel.DiskIORead += general;  //Read from physical disk
+            kernelSession.Source.Kernel.DiskIOWrite += general; //Write from physical disk
+            kernelSession.Source.Kernel.DiskIODriverMajorFunctionCall += general;   //Driver from physical disk called
+            kernelSession.Source.Kernel.DiskIODriverMajorFunctionReturn += general; //Driver from physical disk function returned
+            kernelSession.Source.Kernel.ThreadStartGroup += general;    //Thread started
+            kernelSession.Source.Kernel.ThreadEndGroup += general;  //Thread stopped
+            kernelSession.Source.Kernel.TcpIpSend += general;   //Tcp package sent
+            kernelSession.Source.Kernel.TcpIpRecv += general;   //Tcp package received
+            kernelSession.Source.Kernel.TcpIpSendIPV6 += general;   //IPV6 package sent
+            kernelSession.Source.Kernel.TcpIpRecvIPV6 += general;   //IPV6 package received
+            kernelSession.Source.Kernel.FileIOFileCreate += general;    //New file created
+            kernelSession.Source.Kernel.FileIOFileDelete += general;    //File deleted
             //kernelSession.Source.Kernel.All += general;
 
             //setting up the staring process
@@ -184,6 +170,7 @@ namespace EventTracer
             if (Tracingfromfile.tracking.Contains(data.ProcessID))
             {
                 Tracingfromfile.d.LoadXml(data.Dump());
+                Console.WriteLine("Remaining process: {0}", Tracingfromfile.tracking.Count());
                 File.AppendAllText(@Tracingfromfile.dumpfile, JsonConvert.SerializeXmlNode(d) + "\n");
             }
             else if (Tracingfromfile.tracking.Contains(data.ParentID))

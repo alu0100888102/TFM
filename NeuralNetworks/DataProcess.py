@@ -281,6 +281,9 @@ def loaddata_split_LSTM_moving(route, fro, to, size):
                     rerex = []
                     for y in range(bot, top):
                         temporal = [process[y]["EN"]]
+                        temporal.append(process[y]["PID"])
+                        temporal.append(process[y]["TID"])
+                        temporal.append(process[y]["TS"])
                         for k in process[y]["PL"]:
                             temporal.append(k)
                         rerex.append(temporal)
@@ -320,6 +323,9 @@ def loaddata_split_LSTM_moving(route, fro, to, size):
                     rerex = []
                     for y in range(bot, top):
                         temporal = [process[y]["EN"]]
+                        temporal.append(process[y]["PID"])
+                        temporal.append(process[y]["TID"])
+                        temporal.append(process[y]["TS"])
                         for k in process[y]["PL"]:
                             temporal.append(k)
                         rerex.append(temporal)
@@ -612,6 +618,9 @@ def loaddata_split_LSTM_moving_crossval(route, fro, to, size):
                     rerex = []
                     for y in range(bot, top):
                         temporal = [process[y]["EN"]]
+                        temporal.append(process[y]["PID"])
+                        temporal.append(process[y]["TID"])
+                        temporal.append(process[y]["TS"])
                         for k in process[y]["PL"]:
                             temporal.append(k)
                         rerex.append(temporal)
@@ -652,6 +661,9 @@ def loaddata_split_LSTM_moving_crossval(route, fro, to, size):
                     rerex = []
                     for y in range(bot, top):
                         temporal = [process[y]["EN"]]
+                        temporal.append(process[y]["PID"])
+                        temporal.append(process[y]["TID"])
+                        temporal.append(process[y]["TS"])
                         for k in process[y]["PL"]:
                             temporal.append(k)
                         rerex.append(temporal)
