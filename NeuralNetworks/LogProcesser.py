@@ -94,8 +94,6 @@ def generate ():
             if timestamp == 0:
                 timestamp = data["TS"]
             data["TS"] = data["TS"] - timestamp
-            data["PN"] = int(t["@ProcessorNumber"])
-            data["OPC"] = int(t["@Opcode"])
             data["EN"] = events[t["@EventName"]]
             temp = re.sub(format, ereaser, t["Payload"]["#text"])
             temp = re.sub("[^0-9a-fA-F]", "", temp)
@@ -130,7 +128,6 @@ def numberofbytes ():
             else:
                 t = log["Event"]
                 temp = re.sub(format, ereaser, t["Payload"]["#text"])
-                #temp = re.sub("[^0-9a-fA-F]", "", temp)
                 temp = re.split("[\n\s\t]+", temp)
                 temp = temp[:-1]
 

@@ -7,13 +7,13 @@ fro = 1
 to = 20
 route = "ProcessedLogs\\Splitted\\"
 
-testdata = dp.loaddata_split_LSTM_movig(route, 21, 25, 50)
+testdata = dp.loaddata_split_LSTM(route, 21, 25, 50)
 
 print(testdata[0].shape)
 print(testdata[1].shape)
 
 
-model = keras.models.load_model("Models\\LSTMcross3.mdl")
+model = keras.models.load_model("Models\\LSTMcross4.mdl")
 
 loss, accu = model.evaluate(testdata[0], testdata[1])
 print("Test samples accuracy:", accu)

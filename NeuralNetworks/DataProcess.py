@@ -534,8 +534,6 @@ def loaddata_hash_LSTM_wholefile(route, fro, to, size):
             temporal.append(log["PID"])
             temporal.append(log["TID"])
             temporal.append(log["TS"])
-            # temporal.append(log["PN"])
-            # temporal.append(log["OPC"])
             temporal.append(log["EN"])
             for k in log["PL"]:
                 temporal.append(k)
@@ -568,8 +566,6 @@ def loaddata_hash_LSTM_wholefile(route, fro, to, size):
             temporal.append(log["PID"])
             temporal.append(log["TID"])
             temporal.append(log["TS"])
-            # temporal.append(log["PN"])
-            # temporal.append(log["OPC"])
             temporal.append(log["EN"])
             for k in log["PL"]:
                 temporal.append(k)
@@ -702,8 +698,6 @@ def loaddata_split_LSTM_crossval(route, fro, to, size):
             temporal.append(log["PID"])
             temporal.append(log["TID"])
             temporal.append(log["TS"])
-            #temporal.append(log["PN"])
-            #temporal.append(log["OPC"])
             temporal.append(log["EN"])
             for k in log["PL"]:
                 temporal.append(k)
@@ -738,8 +732,6 @@ def loaddata_split_LSTM_crossval(route, fro, to, size):
             temporal.append(log["PID"])
             temporal.append(log["TID"])
             temporal.append(log["TS"])
-            #temporal.append(log["PN"])
-            #temporal.append(log["OPC"])
             temporal.append(log["EN"])
             for k in log["PL"]:
                 temporal.append(k)
