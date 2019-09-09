@@ -6,11 +6,11 @@ import math
 import numpy as np
 
 fro = 6
-to = 25
+to = 21
 route = "ProcessedLogs\\Splitted\\"
 nfolds = 10
 
-trainingdata = dp.loaddata_split_LSTM_moving_crossval(route, fro, to, 75)
+trainingdata = dp.loaddata_split_LSTM_moving_crossval(route, fro, to, 50)
 rd.shuffle(trainingdata)
 print(len(trainingdata))
 foldsize = int(len(trainingdata) / nfolds)
@@ -19,7 +19,7 @@ model = keras.Sequential([
     keras.layers.LSTM(16),
     keras.layers.Dense(2, activation=tf.nn.softmax)
 ])
-model.compile(optimizer=keras.optimizers.RMSprop(lr=0.01),
+model.compile(optimizer=keras.optimizers.RMSprop(lr=0.05),
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
@@ -56,4 +56,4 @@ for k in range(nfolds):
 meanloss = meanloss/nfolds
 meanaccu = meanaccu/nfolds
 print("Test mean ==> loss:" + str(meanloss) + " accuracy:" + str(meanaccu))
-model.save("Models\\LSTMcrossmoving.mdl")
+model.save("Models\\LSTMcrosswindow.mdl")

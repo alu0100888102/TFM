@@ -6,13 +6,13 @@ import numpy as np
 
 route = "ProcessedLogs\\Splitted\\"
 
-testdata = dp.loaddata_split(route, 1, 5)
+testdata = dp.loaddata_split_LSTM_moving(route, 1, 5, 75)
 
 print(testdata[0].shape)
 print(testdata[1].shape)
 
 
-model = keras.models.load_model("Models\\LSTMcross3.mdl")
+model = keras.models.load_model("Models\\LSTMcrosswindow.mdl")
 predictions = model.predict(testdata[0])
 TP, TN, FP, FN = 0, 0, 0, 0
 acc = 0
@@ -47,11 +47,11 @@ print("TN: " + str(TN))
 print("FP: " + str(FP))
 print("FN: " + str(FN))
 
-finaltests = dp.loaddata_split_wholefile(route, 1, 25)
+finaltests = dp.loaddata_split_LSTM_wholefile(route, 1, 25, 50)
 print(finaltests[0][0].shape)
 TP, TN, FP, FN = 0, 0, 0, 0
 results = {}
-thold = 0.70
+thold = 0.25
 for i in range(50):
     e = np.array(finaltests[0][i])
     predictions = model.predict(e)
@@ -88,7 +88,7 @@ for i in range(50):
             TN += 1
         else:
             FN += 1
-    results[avgbad] = finaltests[1][i]
+    results[acc] = finaltests[1][i]
 print ("TP: " + str(TP))
 print ("TN: " + str(TN))
 print ("FP: " + str(FP))
