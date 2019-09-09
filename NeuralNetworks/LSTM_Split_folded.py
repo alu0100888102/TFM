@@ -56,4 +56,4 @@ for k in range(nfolds):
 meanloss = meanloss/nfolds
 meanaccu = meanaccu/nfolds
 print("Test mean ==> loss:" + str(meanloss) + " accuracy:" + str(meanaccu))
-model.save("Models\\LSTMcross4.mdl")
+model.save("Models\\LSTMcrossmoving.mdl")

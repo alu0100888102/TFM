@@ -2,6 +2,7 @@ import sklearn
 from sklearn import tree
 import DataProcess as dp
 import random as rd
+from sklearn import svm
 
 fro = 1
 to = 25
@@ -9,10 +10,10 @@ route = "ProcessedLogs\\Splitted\\"
 
 trainingdata = dp.loaddata_split_tree(route, fro, to)
 testdata = [[],[]]
-destree = tree.DecisionTreeClassifier()
+clf = svm.SVC(gamma='scale')
 
 
-testsize = int(0.4*len(trainingdata[0]))
+testsize = int(0.3*len(trainingdata[0]))
 print(testsize)
 for i in range(testsize):
     r = rd.randint(0, len(trainingdata)-1)
@@ -21,11 +22,10 @@ for i in range(testsize):
     del(trainingdata[0][r])
     del(trainingdata[1][r])
 
-print(testdata[0])
-print(testdata[1])
+clf = clf.fit(trainingdata[0], trainingdata[1])
+print("YEEE")
+testresults = clf.predict(testdata[0])
 
-destree = destree.fit(trainingdata[0], trainingdata[1])
-testresults = destree.predict(testdata[0])
 
 acc = 0
 totalgood = 0
@@ -64,7 +64,7 @@ results = {}
 TP, TN, FP, FN = 0, 0, 0, 0
 for i in range(50):
     acc = 0
-    pred = destree.predict(finaltests[0][i])
+    pred = clf.predict(finaltests[0][i])
     val = 1
     if i >= 25:
         val = 0

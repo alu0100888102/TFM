@@ -3,22 +3,35 @@ from tensorflow import keras
 import DataProcess as dp
 import numpy as np
 
-fro = 1
-to = 20
+
 route = "ProcessedLogs\\Splitted\\"
 
-testdata = dp.loaddata_split_LSTM(route, 21, 25, 50)
+testdata = dp.loaddata_split(route, 1, 5)
 
 print(testdata[0].shape)
 print(testdata[1].shape)
 
 
-model = keras.models.load_model("Models\\LSTMcross4.mdl")
-
-loss, accu = model.evaluate(testdata[0], testdata[1])
-print("Test samples accuracy:", accu)
-print("Test loss accuracy:", loss)
-
+model = keras.models.load_model("Models\\LSTMcross3.mdl")
+predictions = model.predict(testdata[0])
+TP, TN, FP, FN = 0, 0, 0, 0
+acc = 0
+for i in range(len(testdata[0])):
+    pre = 0
+    if predictions[i][1] >= 0.5:
+        pre = 1
+    if  pre == testdata[1][i]:
+        acc += 1
+        if testdata[1][i] == 1:
+            TP +=1
+        else:
+            TN += 1
+    else:
+        if testdata [1][i] == 1:
+            FN += 1
+        else:
+            FP += 1
+acc = acc/len(testdata[0])
 good = 0
 bad = 0
 for x in testdata[1]:
@@ -28,11 +41,17 @@ for x in testdata[1]:
           bad += 1
 
 print("Good: " + str(good) + ", Bad: " + str(bad))
+print("ACC: " + str(acc))
+print("TP: " + str(TP))
+print("TN: " + str(TN))
+print("FP: " + str(FP))
+print("FN: " + str(FN))
 
-finaltests = dp.loaddata_hash_LSTM_wholefile(route, 1, 25, 50)
+finaltests = dp.loaddata_split_wholefile(route, 1, 25)
 print(finaltests[0][0].shape)
 TP, TN, FP, FN = 0, 0, 0, 0
 results = {}
+thold = 0.70
 for i in range(50):
     e = np.array(finaltests[0][i])
     predictions = model.predict(e)
@@ -52,12 +71,12 @@ for i in range(50):
             maxgood = p[0]
         if p[1] > maxbad:
             maxbad = p[1]
-        if acc > 0.5:
+        if acc > thold:
             print("ALERT: " + str(finaltests[1][i]))
             break
     avgbad = avgbad/count
     avggood = avggood/count
-    if acc >= 0.5:
+    if acc >= thold:
         print("\t" + str(finaltests[1][i]) + " ==> BAD")
         if i < 25:
             TP += 1
@@ -69,7 +88,7 @@ for i in range(50):
             TN += 1
         else:
             FN += 1
-    results[maxbad] = finaltests[1][i]
+    results[avgbad] = finaltests[1][i]
 print ("TP: " + str(TP))
 print ("TN: " + str(TN))
 print ("FP: " + str(FP))

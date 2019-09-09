@@ -1,5 +1,6 @@
 import re
 import json
+import DataProcess as dp
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
@@ -40,9 +41,26 @@ def loaddata(route, fro, to):
 
     return out
 
-print(keras.metrics.FalseNegatives())
+#print(keras.metrics.FalseNegatives())
 #e = loaddata("ProcessedLogs\\Splitted\\", 1, 25)
 #l = sorted(e.keys())
 
 #for t in l:
     #print(str(t) + ": " + str(e[t]))
+
+fro = 1
+to = 25
+route = "ProcessedLogs\\Splitted\\"
+
+trainingdata = dp.loaddata_split(route, fro, to)
+
+good = 0
+bad = 0
+for x in trainingdata[1]:
+    if x < 1:
+        good += 1
+    else:
+        bad += 1
+
+print("Good: " + str(good) + ", Bad: " + str(bad))
+

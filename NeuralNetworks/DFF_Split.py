@@ -1,34 +1,59 @@
 import tensorflow as tf
 from tensorflow import keras
 import DataProcess as dp
-
-fro = 1
-to = 20
+import random as rd
+import numpy as np
+fro = 6
+to = 25
 route = "ProcessedLogs\\Splitted\\"
+nfolds = 10
 
-trainingdata = dp.loaddata_split(route, fro, to)
+trainingdata = dp.loaddata_split_crossval(route, fro, to)
+rd.shuffle(trainingdata)
 print(trainingdata)
+foldsize = int(len(trainingdata) / nfolds)
 
 model = keras.Sequential([
-    keras.layers.Dense(61),
-    keras.layers.Dense(512, activation=tf.nn.tanh),
-    keras.layers.Dense(256, activation=tf.nn.relu),
+    keras.layers.Dense(8),
+    keras.layers.Dense(64, activation=tf.nn.tanh),
+    keras.layers.Dense(32, activation=tf.nn.relu),
     keras.layers.Dense(2, activation=tf.nn.softmax)
 ])
 model.compile(optimizer=keras.optimizers.Adadelta(),
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
-model.fit(trainingdata[0], trainingdata[1], epochs=150)
+testresults = [[], []]
+for i in range(nfolds):
+    print("Fold " + str(i+1) + " ====================================================================================================")
+    start = i * foldsize
+    end = (i+1) * foldsize
+    training = [[], []]
+    test = [[], []]
+    for j in range(len(trainingdata)):
+        if (j >= start and j < end):
+            test[0].append(trainingdata[j][0])
+            test[1].append(trainingdata[j][1])
+        else:
+            training[0].append(trainingdata[j][0])
+            training[1].append(trainingdata[j][1])
+    test[0] = np.array(test[0])
+    test[1] = np.array(test[1], dtype=np.float32)
+    training[0] = np.array(training[0])
+    training[1] = np.array(training[1], dtype=np.float32)
 
-good = 0
-bad = 0
-for x in trainingdata[1]:
-    if x < 1:
-        good += 1
-    else:
-        bad += 1
+    model.fit(training[0], training[1], epochs=50)
+    loss, accu = model.evaluate(test[0], test[1])
+    testresults[0].append(loss)
+    testresults[1].append(accu)
 
-print("Good: " + str(good) + ", Bad: " + str(bad))
-
-model.save("Models\DFFSplitted.mdl")
+meanaccu = 0
+meanloss = 0
+for k in range(nfolds):
+    print("Test" + str(k) + "==> loss:" + str(testresults[0][k]) + "accuracy:" + str(testresults[1][k]))
+    meanloss += testresults[0][k]
+    meanaccu += testresults[1][k]
+meanloss = meanloss/nfolds
+meanaccu = meanaccu/nfolds
+print("Test mean ==> loss:" + str(meanloss) + " accuracy:" + str(meanaccu))
+model.save("Models\\DFFCross.mdl")
