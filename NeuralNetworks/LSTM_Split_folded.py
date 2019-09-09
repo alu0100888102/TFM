@@ -11,9 +11,7 @@ route = "ProcessedLogs\\Splitted\\"
 nfolds = 10
 
 trainingdata = dp.loaddata_split_LSTM_moving_crossval(route, fro, to, 50)
-rd.shuffle(trainingdata)
-print(len(trainingdata))
-foldsize = int(len(trainingdata) / nfolds)
+
 
 model = keras.Sequential([
     keras.layers.LSTM(16),
@@ -22,6 +20,10 @@ model = keras.Sequential([
 model.compile(optimizer=keras.optimizers.RMSprop(lr=0.05),
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
+
+rd.shuffle(trainingdata)
+print(len(trainingdata))
+foldsize = int(len(trainingdata) / nfolds)
 
 testresults = [[], []]
 for i in range(nfolds):
